@@ -9,14 +9,12 @@ class OrderPageQaScooterLocators:
     surname_input_field = [By.XPATH, "//input[@placeholder='* Фамилия']"]
     address_input_field = [By.XPATH, "//input[@placeholder='* Адрес: куда привезти заказ']"]
     station_field = [By.XPATH, "//input[@placeholder='* Станция метро']"]
-    station_to_choose = [By.CLASS_NAME, "select-search_value"]
-    station_to_choose_last = [By.XPATH, "//input[@placeholder='* Станция метро'][]@value='Лихоборы'"]
     phone_number_field = [By.XPATH, "//input[@placeholder='* Телефон: на него позвонит курьер']"]
 
     next_button = [By.XPATH, "//button[text()='Далее']"]
 
     yandex_logo = [By.XPATH, "//a[@href='//yandex.ru']"]
-    scooter_logo = [By.XPATH, "//a[@href='/'"]
+    scooter_logo = [By.XPATH, "//a[@href='/']"]
 
 
 

@@ -1,22 +1,16 @@
 from locators.order_page_locators import OrderPageQaScooterLocators as Op
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
+from pages.base_page import BasePage
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.by import By
-import time
+from test_data import TestData as Td
 
 
-class OrderPageQaScooter:
+class OrderPageQaScooter(BasePage):
 
-    order_page_link = "https://qa-scooter.praktikum-services.ru/order"
-    dzen_link_redirect = "https://dzen.ru/?yredirect=true"
-
-    def __init__(self, driver):
-        self.driver = driver
-
-    def check_order_page_loaded(self):
-        WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(Op.order_header))
+    def get_order_page(self):
+        self.driver.get(Td.ORDER_PAGE_URL)
+        self.wait_for_loading(Op.order_header)
+        self.confirm_cookie_usage()
 
     def set_name(self, name):
         self.driver.find_element(*Op.name_input_field).send_keys(name)
@@ -37,25 +31,13 @@ class OrderPageQaScooter:
         element.click()
         element.send_keys(phone_number)
 
-    def click_next_button(self):
-        self.driver.find_element(*Op.next_button).click()
-
-    def click_on_yandex_logo(self):
-        self.driver.find_element(*Op.yandex_logo).click()
-
-    def click_scooter_logo(self):
-        self.driver.find_element(*Op.scooter_logo).click()
-
-    def wait_for_loading_rent_page(self):
-        WebDriverWait(self.driver, 3).until(expected_conditions.visibility_of_element_located(Op.order_rent_header))
-
     def set_personal_data(self, name, surname, address, station, phone_number):
         self.set_name(name)
         self.set_surname(surname)
         self.set_address(address)
         self.set_station(station)
         self.set_phone_number(phone_number)
-        self.click_next_button()
-        self.wait_for_loading_rent_page()
+        self.click_on_element(Op.next_button)
+        self.wait_for_loading(Op.order_rent_header)
 
 

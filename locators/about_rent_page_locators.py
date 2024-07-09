@@ -11,9 +11,8 @@ class AboutRentPageLocators:
     rental_period_two_days = [By.XPATH, "//div[text()='двое суток']"]
     scooter_black_color = [By.ID, "black"]
     scooter_grey_color = [By.ID, "grey"]
-    comment = [By.XPATH, "//input[@placeholder='Комментарий для курьера']"]
 
-    make_order_button = [By.XPATH, "//button[text()='Заказать']"]
+    make_order_button = [By.XPATH, "//button[contains(@class, 'Button_Middle__1CSJM')][text()='Заказать']"]
 
     popup_question_header = [By.XPATH, "//div[text()='Хотите оформить заказ?']"]
     yes_button = [By.XPATH, "//button[text()='Да']"]

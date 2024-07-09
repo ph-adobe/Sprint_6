@@ -1,34 +1,34 @@
 import pytest
 
-from pages.order_page import OrderPageQaScooter
-from pages.about_rent_page import AboutRentPage
-from test_data import TestData as Td
-from selenium import webdriver
-from selenium.webdriver.firefox.service import Service
-from locators.order_page_locators import OrderPageQaScooterLocators as OpLoc
-from pages.main_page import MainPageQaScooter
+from locators.order_page_locators import OrderPageQaScooterLocators as Op
+from locators.about_rent_page_locators import AboutRentPageLocators as Arp
 
-from locators.main_page_locators import MainPageQaScooterLocators as MpLoc
+from pages.about_rent_page import AboutRentPage
+from pages.main_page import MainPageQaScooter
+from pages.order_page import OrderPageQaScooter
+
+from test_data import TestData as Td
 
 
 class TestOrderQaScooter:
     @pytest.mark.parametrize(
-        "name, surname, address, station, phone_number, rental_period, scooter_color",
+        "button_locator, name, surname, address, station, phone_number, rental_period, scooter_color",
         [
-            Td.data_set_to_make_order_1,
-            Td.data_set_to_make_order_2
+            pytest.param(*Td.data_set_to_make_order_1, id="Order button at the top of the page"),
+            pytest.param(*Td.data_set_to_make_order_2, id="Order button in the middle of the page")
         ]
     )
-    def test_make_order(self, driver, name, surname, address, station, phone_number, rental_period, scooter_color):
+    def test_make_order(self, driver, button_locator, name, surname, address, station, phone_number, rental_period,
+                        scooter_color):
         order_page = OrderPageQaScooter(driver)
         main_page = MainPageQaScooter(driver)
         about_rent = AboutRentPage(driver)
 
         main_page.get_main_page()
-        main_page.confirm_cookie_usage()
-        main_page.click_on_head_order_button()
-        order_page.check_order_page_loaded()
+        main_page.click_on_element(button_locator)
+        order_page.wait_for_loading(Op.order_header)
         order_page.set_personal_data(name, surname, address, station, phone_number)
+        order_page.wait_for_loading(Arp.about_rent_header)
         about_rent.sent_rent_data(rental_period, scooter_color)
-        # assert self.driver.find_element(*OpLoc.order_rent_header)
 
+        assert about_rent.check_presence_of_element(Arp.order_is_processed)

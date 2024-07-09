@@ -2,14 +2,9 @@ from selenium.webdriver.common.by import By
 
 
 class MainPageQaScooterLocators:
-    cookie_message = [By.CLASS_NAME, "App_CookieConsent__1yUIN"]
-    confirm_cookie_button = [By.XPATH, "//*[@id='rcc-confirm-button']"]
-    head_page_order_button = [By.CLASS_NAME, "Button_Button__ra12g"]
-    bottom_page_order_button = [By.CLASS_NAME, "Button_Button__ra12g Button_Middle__1CSJM"]
-    scooter_header = [By.CLASS_NAME, "Home_SubHeader__zwi_E"]
-
-    important_questions = [By.XPATH, "//div[@class='Home_SubHeader__zwi_E'][text()='Вопросы о важном']"]
-    questions = [By.CLASS_NAME, "accordion__button"]
+    home_header = [By.CLASS_NAME, "Home_Header__iJKdX"]
+    head_page_order_button = [By.XPATH, "//div[@class='Header_Nav__AGCXC']/button[text()='Заказать']"]
+    bottom_page_order_button = [By.XPATH, "//div[@class='Home_FinishButton__1_cWm']/button[text()='Заказать']"]
 
     payment_question = [By.ID, "accordion__heading-0"]
     payment_answer = [By.XPATH, "//*[@id='accordion__panel-0']/p"]
@@ -55,17 +50,4 @@ class MainPageQaScooterLocators:
     distance_question = [By.XPATH, "//*[@id='accordion__heading-7']"]
     distance_answer = [By.XPATH, "//*[@id='accordion__panel-7']/p"]
     distance_answer_text = "Да, обязательно. Всем самокатов! И Москве, и Московской области."
-
-    # questions = [
-    #     [payment_question, payment_answer, payment_answer_text],
-    #     [scooter_number_question, scooter_number_answer, scooter_number_answer_text],
-    #     [rent_time_calculation_question, rent_time_calculation_answer, rent_time_calculation_answer_text],
-    #     [rent_today_question, rent_today_answer, rent_today_answer_text],
-    #     [change_rent_period_question, change_rent_period_answer, change_rent_period_answer_text],
-    #     [charger_question, charger_answer, charger_answer_text],
-    #     [cancellation_question, cancellation_answer, cancellation_answer_text],
-    #     [distance_question, distance_answer, distance_answer_text]
-    # ]
-
-
 
