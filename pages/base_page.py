@@ -1,12 +1,15 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-from time import sleep
 
 
 class BasePage:
     cookie_message = [By.CLASS_NAME, "App_CookieConsent__1yUIN"]
     confirm_cookie_button = [By.XPATH, "//*[@id='rcc-confirm-button']"]
+    # dzen_logo = [By.XPATH, "//svg[contains(@class, 'desktop-base-header__logoBrand-1S')]"]
+    dzen_search = [By.ID, "ya-search-container-uri0hf"]
     timeout = 7
 
     def __init__(self, driver):
@@ -39,10 +42,20 @@ class BasePage:
         self.scroll_to_element(element_locator)
         self.check_presence_of_element(element_locator).click()
 
-    def switch_to_next_window(self):
+    def input_data(self, element_locator, *args):
+        self.check_presence_of_element(element_locator).click()
+        self.check_presence_of_element(element_locator).send_keys(*args)
+
+    def choose_element_from_drop_down_list(self, element_locator, element_to_choose):
+        element = self.check_presence_of_element(element_locator)
+        actions = ActionChains(self.driver)
+        actions.click(element).send_keys(element_to_choose, Keys.ARROW_DOWN, Keys.ENTER).perform()
+
+    def switch_to_next_window(self, element_locator):
         current_window = self.driver.current_window_handle
         for handle in self.driver.window_handles:
             if handle != current_window:
                 self.driver.switch_to.window(handle)
+                self.check_presence_of_element(element_locator)
                 break
-            sleep(3)
+
