@@ -1,11 +1,13 @@
 import allure
-from locators.main_page_locators import MainPageQaScooterLocators as Mpl
 from locators.order_page_locators import OrderPageQaScooterLocators as Op
 from pages.base_page import BasePage
 from test_data import TestData as Td
 
 
 class OrderPageQaScooter(BasePage):
+
+    def wait_for_loading_order_page(self):
+        self.wait_for_loading(Op.order_header)
 
     @allure.step("Open order page")
     def get_order_page(self):
@@ -46,11 +48,11 @@ class OrderPageQaScooter(BasePage):
     @allure.step("Click on scooter logo")
     def click_on_scooter_logo(self):
         self.click_on_element(Op.scooter_logo)
-        self.wait_for_loading(Mpl.home_header)
 
     @allure.step("Click on yandex logo")
     def click_on_yandex_logo(self):
         self.click_on_element(Op.yandex_logo)
-        self.switch_to_next_window(self.dzen_search)
+
+
 
 

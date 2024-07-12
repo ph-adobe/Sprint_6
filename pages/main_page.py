@@ -1,11 +1,13 @@
 import allure
 from locators.main_page_locators import MainPageQaScooterLocators as Mpl
-from locators.order_page_locators import OrderPageQaScooterLocators as Op
 from pages.base_page import BasePage
 from test_data import TestData as Td
 
 
 class MainPageQaScooter(BasePage):
+    def wait_for_loading_main_page(self):
+        self.wait_for_loading(Mpl.home_header)
+
     @allure.step("Open main page")
     def get_main_page(self):
         self.get_url(Td.MAIN_PAGE_URL)
@@ -28,4 +30,6 @@ class MainPageQaScooter(BasePage):
             self.click_on_element(Mpl.head_page_order_button)
         elif button == "button in the middle of the page":
             self.click_on_element(Mpl.bottom_page_order_button)
-        self.wait_for_loading(Op.order_header)
+
+
+

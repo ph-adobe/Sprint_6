@@ -1,4 +1,4 @@
-from selenium.webdriver.common.by import By
+from locators.base_page_locators import BaseLocators as Bl
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.support import expected_conditions
@@ -14,6 +14,10 @@ class BasePage:
     def __init__(self, driver):
         self.driver = driver
 
+    @property
+    def current_url(self):
+        return self.driver.current_url
+
     def get_url(self, url):
         self.driver.get(url)
 
@@ -21,9 +25,9 @@ class BasePage:
         WebDriverWait(self.driver, time).until(expected_conditions.visibility_of_element_located(locator))
 
     def confirm_cookie_usage(self):
-        cookie = self.driver.find_element(*self.cookie_message)
+        cookie = self.driver.find_element(*Bl.cookie_message)
         if cookie:
-            self.driver.find_element(*self.confirm_cookie_button).click()
+            self.driver.find_element(*Bl.confirm_cookie_button).click()
 
     def check_presence_of_element(self, element_locator):
         element = WebDriverWait(self.driver, self.timeout).until(
@@ -57,4 +61,8 @@ class BasePage:
                 self.driver.switch_to.window(handle)
                 self.check_presence_of_element(element_locator)
                 break
+        return self.current_url
+
+    def get_dzen_window_url(self):
+        return self.switch_to_next_window(Bl.dzen_search)
 

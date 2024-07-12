@@ -26,6 +26,7 @@ class TestOrderQaScooter:
 
         main_page.get_main_page()
         main_page.click_on_order_button(button)
+        order_page.wait_for_loading_order_page()
         order_page.set_personal_data(name, surname, address, station, phone_number)
         about_rent.sent_rent_data(rental_period, scooter_color)
 
