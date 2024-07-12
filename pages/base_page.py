@@ -8,7 +8,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 class BasePage:
     cookie_message = [By.CLASS_NAME, "App_CookieConsent__1yUIN"]
     confirm_cookie_button = [By.XPATH, "//*[@id='rcc-confirm-button']"]
-    # dzen_logo = [By.XPATH, "//svg[contains(@class, 'desktop-base-header__logoBrand-1S')]"]
     dzen_search = [By.ID, "ya-search-container-uri0hf"]
     timeout = 7
 
